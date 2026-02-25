@@ -1,0 +1,17 @@
+---
+description: Main platform patterns — Auth.js, D1 via Drizzle, provisioning, client dist deployment
+globs: apps/main/**
+alwaysApply: false
+---
+
+# Main Orchestrator (apps/main)
+
+- **Auth**: Auth.js for registration and sessions. Store user and account data in **Cloudflare D1** (credentials, linked Cloudflare account info).
+- **D1 access**: Use **Drizzle ORM** for all D1 reads/writes. See the `astrofree-drizzle-d1` rule for schema, migrations, and usage.
+- **Cloudflare access**: Use **Cloudflare OAuth2** ("Log in with Cloudflare" flow). Register the CMS as an OAuth2 application in your Cloudflare dashboard; there is no subscription fee. Users click "Connect Cloudflare" and are redirected to Cloudflare to authorize with chosen scopes (e.g. `worker:edit`, `r2:write`). Store the OAuth result (scoped token or refresh) in D1; never use Global API Keys.
+- **Provisioning**: With the OAuth2 scoped token, provision R2 buckets/folders, API keys, permissions, domain config, Worker env vars via **Cloudflare API (Wrangler/REST)**. Use that token when calling Wrangler or REST to spin up R2 and Workers automatically (see `astrofree-client-and-deployment`).
+- **Client dist**: Main orchestrates building and deploying the **Client** dist to each customer's Cloudflare (Pages/Worker). Rendering logic lives in Client + R2 JSON only.
+- **Env**: Use `wrangler.json` and `.dev.vars` for env; never commit secrets (OAuth client credentials, D1 bindings in wrangler).
+- **Forms and UI**: Use the **shadcn/ui** library when designing forms and UI in `apps/main`. Import components from `@/components/ui` (e.g. `Button`, `Input`, `Label`, `Form`). Use the `cn()` helper from `@/lib/utils` for class names. Only a subset of shadcn components may be installed; if another is needed (e.g. `Select`, `Checkbox`, `Card`), ask the user to run `cd apps/main && npx shadcn@latest add <component>` and then use it. Prefer existing installed components first.
+
+**Local development**: Use Wrangler’s local emulation (default). Run `npm run dev` or `wrangler dev` from `apps/main` — D1 and R2 are emulated locally (Miniflare); you are not connected to Cloudflare. Apply D1 migrations locally with `wrangler d1 execute astrofree-db-dev --local --file=./db/migrations/….sql`. Use `wrangler dev --remote` only when you need to hit real cloud resources; prefer a separate preview D1 and R2 for that.

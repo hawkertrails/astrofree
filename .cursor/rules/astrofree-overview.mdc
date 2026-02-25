@@ -1,0 +1,23 @@
+---
+description: Project identity and architecture for astrofree (Main vs Client, JSON CMS on Cloudflare)
+alwaysApply: true
+---
+
+# Astrofree Overview
+
+**Project**: astrofree — React/Astro platform that lets **customers** host their own CMS on **their** Cloudflare account using the free tier (Pages, Workers, R2). Content is stored as **JSON files** in R2 instead of a database to avoid limits.
+
+**Monorepo layout**:
+- `apps/main/` — Orchestrator: registration, Auth.js, D1 (Drizzle), provisioning, deploying Client dist.
+- `apps/client/` — Customer-facing site: built once, deployed to each customer's Cloudflare Pages/Worker; reads from R2 (e.g. `page.json`).
+- `packages/shared/` — Styled components shared by Main and Client; Client dist includes these so new components ship via dist updates.
+
+**Two deployment targets**:
+1. **Main (orchestrator)**: Your platform. Users register, then grant access via **Cloudflare OAuth2** ("Connect Cloudflare" → user authorizes with chosen scopes); the orchestrator receives a scoped token and provisions R2, keys, permissions, domain, worker env, and deploys/updates the Client dist. Uses **D1** for user/account data and **Auth.js** for auth. Use **Drizzle ORM** for all D1 access.
+2. **Client**: Single **dist** deployed to each customer's Cloudflare. Self-contained; customer edits **page.json** (pre-styled components) and uploads JSON to their R2 folder; site renders from that. No D1.
+
+**Flow**: User uses Main → generates **JSON recipes** → copies JSON to their R2 folder → Client site displays the new page.
+
+Build from repo root: `npm run build` (both apps), or `npm run build:main` / `npm run build:client`.
+
+**npm**: npm install/update is restricted to admin only. When a step requires installing or updating packages, do not run `npm install` or similar yourself — ask the user to run the install, then wait for them to prompt you to continue.

@@ -1,0 +1,11 @@
+{
+  "name": "@astrofree/shared",
+  "description": "Styled components shared by Main and Client",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}
