@@ -1,0 +1,25 @@
+{
+  "name": "astrofree-main",
+  "description": "Orchestrator — Auth.js, D1 (Drizzle), provisioning, client dist deployment",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "astro": "astro",
+    "build": "astro build",
+    "dev": "astro dev",
+    "preview": "astro build && wrangler dev",
+    "deploy": "wrangler deploy",
+    "cf-typegen": "wrangler types",
+    "check": "astro build && tsc --noEmit && wrangler deploy --dry-run"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "12.6.12",
+    "astro": "^5.17.3",
+    "drizzle-orm": "^0.38.0",
+    "typescript": "5.9.3"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.30.0",
+    "wrangler": "4.56.0"
+  }
+}

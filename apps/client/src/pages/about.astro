@@ -1,5 +1,10 @@
 ---
 import Layout from '../layouts/BlogPost.astro';
+
+const { env } = Astro.locals.runtime;
+const baseUrl = env.BASE_URL;
+
+console.log("Darren", baseUrl);
 ---
 
 <Layout

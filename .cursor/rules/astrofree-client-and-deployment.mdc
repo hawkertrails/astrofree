@@ -1,0 +1,18 @@
+---
+description: Client app contract (page.json, R2) and Cloudflare OAuth2 deployment/provisioning
+globs: apps/client/**, .github/workflows/**
+alwaysApply: false
+---
+
+# Client and Deployment
+
+**Client (apps/client)**:
+- Runs on **customer's** Cloudflare only (Pages/Worker + R2). No D1; no database. Reads content from **R2** (e.g. `page.json` and other JSON).
+- Pre-styled components are fixed in the dist; customer edits **page.json** (and related JSON) to control layout/content; app renders from that.
+- Import styled components from `packages/shared`; Client dist is built with them so updates ship via dist deploys from Main.
+
+**Cloudflare OAuth2 — how it works (and why it's free)**:
+- **"Log in with Cloudflare" flow**: Register your CMS as an OAuth2 Application in your own Cloudflare dashboard. There is no subscription fee to create this application. [Cloudflare API](https://developers.cloudflare.com/api/)
+- **User consent**: When a user clicks "Connect Cloudflare" in your CMS, they are redirected to Cloudflare to authorize your app. They can choose exactly which permissions (scopes) to grant, e.g. `worker:edit` or `r2:write`. [developers.cloudflare.com](https://developers.cloudflare.com)
+- **No "seat" costs**: Unlike Cloudflare Access (which charges per user after the first 50 to protect internal apps), the standard OAuth2 Developer Platform does not charge you per user who authorizes your application.
+- Use **Cloudflare API (Wrangler + REST)** with the user's OAuth2 scoped token for provisioning and deploying to their account. Store only the OAuth token/refresh result in D1. For Main's own infra (D1, Workers), use Wrangler and `wrangler.json`.

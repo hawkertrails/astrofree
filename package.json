@@ -1,36 +1,24 @@
 {
-	"name": "astrofree",
-	"description": "Build a personal website, blog, or portfolio with Astro.",
-	"cloudflare": {
-		"label": "Astro Framework Starter",
-		"products": [
-			"Workers"
-		],
-		"categories": [],
-		"preview_icon_url": "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/394ca3c9-d351-4036-035a-9f6dfa26dd00/public",
-		"preview_image_url": "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/f40a6577-eed5-4f3e-cef4-b5ef0a1be100/preview",
-		"publish": true
-	},
-	"dependencies": {
-		"@astrojs/cloudflare": "12.6.12",
-		"@astrojs/mdx": "4.3.12",
-		"@astrojs/rss": "4.0.14",
-		"@astrojs/sitemap": "3.6.0",
-		"astro": "^5.17.3",
-		"typescript": "5.9.3"
-	},
-	"devDependencies": {
-		"wrangler": "4.56.0"
-	},
-	"private": true,
-	"scripts": {
-		"astro": "astro",
-		"build": "astro build",
-		"cf-typegen": "wrangler types",
-		"check": "astro build && tsc && wrangler deploy --dry-run",
-		"deploy": "wrangler deploy",
-		"dev": "astro dev",
-		"preview": "astro build && wrangler dev"
-	},
-	"type": "module"
+  "name": "astrofree",
+  "description": "Monorepo: Main (orchestrator) + Client (customer CMS on Cloudflare Pages/Worker + R2)",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/main",
+    "apps/client",
+    "packages/shared"
+  ],
+  "scripts": {
+    "build": "npm run build:main && npm run build:client",
+    "build:main": "npm run build -w astrofree-main",
+    "build:client": "npm run build -w astrofree-client",
+    "dev:main": "npm run dev -w astrofree-main",
+    "dev:client": "npm run dev -w astrofree-client",
+    "preview:main": "npm run preview -w astrofree-main",
+    "preview:client": "npm run preview -w astrofree-client",
+    "deploy:main": "npm run deploy -w astrofree-main",
+    "deploy:client": "npm run deploy -w astrofree-client",
+    "cf-typegen": "npm run cf-typegen -w astrofree-main && npm run cf-typegen -w astrofree-client",
+    "check": "npm run check -w astrofree-main && npm run check -w astrofree-client"
+  }
 }

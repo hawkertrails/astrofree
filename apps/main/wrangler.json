@@ -1,0 +1,22 @@
+{
+  "name": "astrofree-main",
+  "compatibility_date": "2025-10-08",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "./dist/_worker.js/index.js",
+  "assets": { "directory": "./dist", "binding": "ASSETS" },
+  "observability": { "enabled": true },
+  "upload_source_maps": true,
+  "vars": {
+    "ENVIRONMENT": "production"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "astrofree-db-dev",
+      "database_id": "76651a84-75c2-4b7b-beab-ae25b082f35f"
+    }
+  ],
+  "r2_buckets": [
+    { "binding": "BUCKET", "bucket_name": "astrofree-images" }
+  ]
+}
