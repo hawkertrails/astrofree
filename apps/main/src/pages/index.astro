@@ -1,16 +1,38 @@
 ---
-// Orchestrator placeholder — Auth.js, D1 (Drizzle), provisioning live here
+// Orchestrator — Auth.js, D1 (Drizzle), provisioning, client dist deployment
+import '../styles/global.css';
+import { Header } from '../components/navigation/Header';
 ---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<title>Astrofree — Main</title>
-	</head>
-	<body>
-		<main>
-			<h1>Astrofree Main</h1>
-			<p>Orchestrator: registration, D1 (Drizzle), provisioning, client dist deployment.</p>
-		</main>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Astrofree — Main</title>
+  </head>
+  <body class="min-h-screen font-sans antialiased">
+    <Header client:load />
+    <section
+      class="hero-space relative flex min-h-[32rem] flex-col items-center justify-center overflow-hidden px-4 py-20"
+    >
+      <!-- Subtle star dots -->
+      <span class="star left-[10%] top-[15%] h-1 w-1" aria-hidden="true"></span>
+      <span class="star right-[15%] top-[25%] h-1.5 w-1.5" aria-hidden="true"></span>
+      <span class="star left-[20%] top-[60%] h-1 w-1" aria-hidden="true"></span>
+      <span class="star right-[25%] top-[70%] h-1 w-1" aria-hidden="true"></span>
+      <span class="star left-[50%] top-[40%] h-1 w-1" aria-hidden="true"></span>
+      <span class="star right-[40%] top-[20%] h-1.5 w-1.5" aria-hidden="true"></span>
+      <span class="star left-[35%] top-[80%] h-1 w-1" aria-hidden="true"></span>
+      <span class="star right-[10%] top-[10%] h-1 w-1" aria-hidden="true"></span>
+
+      <div class="relative z-10 text-center">
+        <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+          Welcome to Astrofree
+        </h1>
+        <p class="mt-4 max-w-2xl text-xl text-slate-300 sm:text-2xl">
+          Building the Web, One Free Site at a Time.
+        </p>
+      </div>
+    </section>
+  </body>
 </html>

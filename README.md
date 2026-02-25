@@ -25,6 +25,13 @@ For **CLI deploy** from your machine: run `npm run deploy:main` from the repo ro
 
 Use the custom domain in your app for public image URLs; the `BUCKET` binding is for reading/writing objects.
 
+**Main app (apps/main)**: Tailwind, shadcn/ui, Resend, react-email are wired. Add `RESEND_API_KEY` to `apps/main/.dev.vars` for local dev and to Worker Variables and Secrets for UAT/PRD. After installing deps, run `cd apps/main && npx shadcn@latest add button` (or other components) to add shadcn UI components.
+
+## Security / npm audit
+
+`npm audit` may report 2 **high** and several **moderate** issues. The two high-severity findings come from **undici** (used by miniflare/wrangler) in the **local development** stack only; production runs on Cloudflare’s edge and does not use miniflare or undici.  
+**Do not** run `npm audit fix --force` to “fix” the high by downgrading `@astrojs/cloudflare` to 12.6.5: 12.6.5 is affected by an SSRF (CVE-2025-58179) that was fixed in 12.6.6+. Staying on 12.6.6+ (e.g. 12.6.12) is correct. The remaining audit items (esbuild, prismjs, undici) are either dev-only or require major upgrades; you can track upstream fixes and upgrade when feasible.
+
 Features:
 
 - ✅ Minimal styling (make it your own!)
