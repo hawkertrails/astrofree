@@ -1,0 +1,6 @@
+dist
+node_modules
+.astro
+*.min.js
+*.d.ts
+env.d.ts

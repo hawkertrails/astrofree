@@ -14,9 +14,7 @@
       "database_id": "aee24f33-5337-4dc3-8221-ed235e357e8b"
     }
   ],
-  "r2_buckets": [
-    { "binding": "BUCKET", "bucket_name": "astrofree-prd" }
-  ],
+  "r2_buckets": [{ "binding": "BUCKET", "bucket_name": "astrofree-prd" }],
   "env": {
     "uat": {
       "name": "astrofree-uat",
@@ -28,9 +26,7 @@
           "database_id": "826766a3-3e09-4b89-9143-a6a39afc4757"
         }
       ],
-      "r2_buckets": [
-        { "binding": "BUCKET", "bucket_name": "astrofree-uat" }
-      ]
+      "r2_buckets": [{ "binding": "BUCKET", "bucket_name": "astrofree-uat" }]
     }
   }
 }

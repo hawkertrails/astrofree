@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
+
+/* Space-theme hero background */
+.hero-space {
+  background: linear-gradient(
+    135deg,
+    #0f0c29 0%,
+    #1a1a2e 25%,
+    #16213e 50%,
+    #0f3460 75%,
+    #1a1a2e 100%
+  );
+  background-size: 400% 400%;
+  animation: hero-space-shift 20s ease infinite;
+}
+
+@keyframes hero-space-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.hero-space .star {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.3);
+}
