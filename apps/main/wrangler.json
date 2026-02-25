@@ -1,0 +1,36 @@
+{
+  "name": "astrofree",
+  "compatibility_date": "2025-10-08",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "./dist/_worker.js/index.js",
+  "assets": { "directory": "./dist", "binding": "ASSETS" },
+  "observability": { "enabled": true },
+  "upload_source_maps": true,
+  "vars": { "ENVIRONMENT": "production" },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "astrofree-db-prd",
+      "database_id": "aee24f33-5337-4dc3-8221-ed235e357e8b"
+    }
+  ],
+  "r2_buckets": [
+    { "binding": "BUCKET", "bucket_name": "astrofree-prd" }
+  ],
+  "env": {
+    "uat": {
+      "name": "astrofree-uat",
+      "vars": { "ENVIRONMENT": "uat" },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "astrofree-db-uat",
+          "database_id": "826766a3-3e09-4b89-9143-a6a39afc4757"
+        }
+      ],
+      "r2_buckets": [
+        { "binding": "BUCKET", "bucket_name": "astrofree-uat" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+---
+description: Use Drizzle ORM for all Cloudflare D1 access in the Main platform
+globs: apps/main/**
+alwaysApply: false
+---
+
+# Drizzle ORM + D1 (Main platform)
+
+- **Use Drizzle ORM** to connect to Cloudflare D1 in `apps/main`. No raw D1 `prepare()`/`run()` for app logic; go through Drizzle for type safety and migrations.
+- **Schema**: Define tables in `apps/main/db/schema` (or equivalent); use `drizzle-orm` with `drizzle-kit` for migrations. Use the official `drizzle-orm/d1` driver for Cloudflare Workers.
+- **Migrations**: Store SQL migrations in `apps/main/db/migrations` (or as Drizzle config). Run migrations via Wrangler/D1 before deploy (e.g. `wrangler d1 execute` or Drizzle Kit push).
+- **Binding**: In `wrangler.json` (or `wrangler.toml`), bind D1 with a name (e.g. `DB`) and pass the binding into the Drizzle client; use `Astro.locals.runtime.env.DB` (or equivalent) in request context.
+- **Example**: Prefer `db.select().from(users)` / `db.insert(users).values(...)` over hand-written SQL unless necessary.
