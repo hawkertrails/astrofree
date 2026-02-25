@@ -4,15 +4,15 @@ Monorepo: **Main** (orchestrator) and **Client** (customer CMS) on Cloudflare Pa
 
 ## Deploying from Cloudflare console (Git)
 
-When you use **Wrangler** as the deploy command (e.g. `npx wrangler deploy --env uat`), Wrangler must run from **apps/main** so it finds `wrangler.json` and `./dist` there. From the repo root it would look for `dist/` at root and fail with "Missing entry-point to Worker script or to assets directory".
+When you use **Wrangler** for the deploy command, it must run from **apps/main** so it finds `wrangler.json` and `./dist` there. If Wrangler runs from the repo root, it won't see the config and will fail with "Missing entry-point to Worker script or to assets directory". **Do not** change the paths in wrangler.json to `./apps/main/dist` — they are correct when the command runs from `apps/main`.
 
 Use:
 
 - **Build command:** `npm run build:main`
-- **Deploy command:** `cd apps/main && npx wrangler deploy --env uat`
+- **Deploy command (production):** `cd apps/main && npx wrangler deploy`
+- **Deploy command (UAT):** `cd apps/main && npx wrangler deploy --env uat`
+- **Non-production / versions upload:** `cd apps/main && npx wrangler versions upload` (or add `--env uat` if needed)
 - **Path:** `/` (repo root)
-
-For production, use the same pattern with your production env, e.g. `cd apps/main && npx wrangler deploy`.
 
 For **CLI deploy** from your machine: run `npm run deploy:main` from the repo root (it runs Wrangler from `apps/main`).
 
