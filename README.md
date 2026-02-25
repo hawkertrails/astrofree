@@ -1,12 +1,29 @@
-# Astro Starter Kit: Blog
+# Astrofree
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/astro-blog-starter-template)
+Monorepo: **Main** (orchestrator) and **Client** (customer CMS) on Cloudflare Pages/Workers + R2.
 
-![Astro Template Preview](https://github.com/withastro/astro/assets/2244813/ff10799f-a816-4703-b967-c78997e8323d)
+## Deploying from Cloudflare console (Git)
 
-<!-- dash-content-start -->
+When you use **Wrangler** as the deploy command (e.g. `npx wrangler deploy --env uat`), Wrangler must run from **apps/main** so it finds `wrangler.json` and `./dist` there. From the repo root it would look for `dist/` at root and fail with "Missing entry-point to Worker script or to assets directory".
 
-Create a blog with Astro and deploy it on Cloudflare Workers as a [static website](https://developers.cloudflare.com/workers/static-assets/).
+Use:
+
+- **Build command:** `npm run build:main`
+- **Deploy command:** `cd apps/main && npx wrangler deploy --env uat`
+- **Path:** `/` (repo root)
+
+For production, use the same pattern with your production env, e.g. `cd apps/main && npx wrangler deploy`.
+
+For **CLI deploy** from your machine: run `npm run deploy:main` from the repo root (it runs Wrangler from `apps/main`).
+
+## R2 buckets (Main app)
+
+| Env   | Bucket name   | Custom domain (set in Cloudflare R2) |
+| ----- | ------------- | ------------------------------------ |
+| UAT   | `astrofree-uat`  | `images-uat.astrofree.me`            |
+| PRD   | `astrofree-prd`  | `images.astrofree.me`                |
+
+Use the custom domain in your app for public image URLs; the `BUCKET` binding is for reading/writing objects.
 
 Features:
 
